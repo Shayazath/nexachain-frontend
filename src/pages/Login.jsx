@@ -1,1 +1,123 @@
-import {useState} from 'react';import {Link,useNavigate} from 'react-router-dom';import {ArrowRight,ShieldCheck} from 'lucide-react';import {useAuth} from '../context/AuthContext';export default function Login(){const {login}=useAuth(),navigate=useNavigate();const [email,setEmail]=useState('demo@nexachain.local'),[password,setPassword]=useState('DemoPass123!'),[error,setError]=useState(''),[busy,setBusy]=useState(false);async function submit(e){e.preventDefault();setError('');setBusy(true);try{await login(email,password);navigate('/')}catch(e){setError(e.message)}finally{setBusy(false)}}return <div className="auth-page"><div className="auth-art"><div className="brand"><span className="brand-mark">N</span><div><b>nexachain</b><small>INVESTOR PORTAL</small></div></div><div className="art-copy"><span className="pill"><span className="pulse-dot"/> YOUR FINANCIAL OVERVIEW</span><h1>Make your next<br/>move <em>count.</em></h1><p>A clear view of your investments, earnings, and referral network — all in one place.</p><div className="art-graph"><div className="graph-label"><span>Illustrative portfolio growth</span><b>DEMO DATA</b></div><svg viewBox="0 0 500 150" role="img" aria-label="Illustrative rising line chart"><defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#8ef0c0" stopOpacity=".25"/><stop offset="1" stopColor="#8ef0c0" stopOpacity="0"/></linearGradient></defs><path d="M0 125 C45 120 50 95 95 104 S145 116 190 80 S250 96 292 55 S355 73 395 35 S455 43 500 10 L500 150 L0 150 Z" fill="url(#area)"/><path d="M0 125 C45 120 50 95 95 104 S145 116 190 80 S250 96 292 55 S355 73 395 35 S455 43 500 10" fill="none" stroke="#8ef0c0" strokeWidth="3" strokeLinecap="round"/></svg></div></div><div className="art-bottom"><ShieldCheck size={16}/> Secure access to your demo account</div></div><div className="auth-form-wrap"><form className="auth-form" onSubmit={submit}><span className="eyebrow">WELCOME BACK</span><h2>Sign in to your account</h2><p className="muted">Enter your details to access your dashboard.</p>{error&&<div className="form-error">{error}</div>}<label>Email address<input type="email" autoComplete="email" required value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Password<input type="password" autoComplete="current-password" required value={password} onChange={e=>setPassword(e.target.value)}/></label><button className="primary-btn full-btn" disabled={busy}>{busy?'Signing in…':'Sign in'} <ArrowRight size={17}/></button><div className="demo-tip"><b>Demo credentials</b><span>demo@nexachain.local</span><span>DemoPass123!</span></div><p className="auth-switch">New to the platform? <Link to="/register">Create an account</Link></p></form></div></div>}
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight, ShieldCheck } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+export default function Login() {
+  const { login } = useAuth(),
+    navigate = useNavigate();
+  const [email, setEmail] = useState("demo@nexachain.local"),
+    [password, setPassword] = useState("DemoPass123!"),
+    [error, setError] = useState(""),
+    [busy, setBusy] = useState(false);
+  async function submit(e) {
+    e.preventDefault();
+    setError("");
+    setBusy(true);
+    try {
+      await login(email, password);
+      navigate("/");
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <div className="auth-page">
+      <div className="auth-art">
+        <div className="brand">
+          <span className="brand-mark">N</span>
+          <div>
+            <b>nexachain</b>
+            <small>INVESTOR PORTAL</small>
+          </div>
+        </div>
+        <div className="art-copy">
+          <span className="pill">
+            <span className="pulse-dot" /> YOUR FINANCIAL OVERVIEW
+          </span>
+          <h1>
+            Make your next
+            <br />
+            move <em>count.</em>
+          </h1>
+          <p>
+            A clear view of your investments, earnings, and referral network —
+            all in one place.
+          </p>
+          <div className="art-graph">
+            <div className="graph-label">
+              <span>Illustrative portfolio growth</span>
+              <b>DEMO DATA</b>
+            </div>
+            <svg
+              viewBox="0 0 500 150"
+              role="img"
+              aria-label="Illustrative rising line chart"
+            >
+              <defs>
+                <linearGradient id="area" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stopColor="#8ef0c0" stopOpacity=".25" />
+                  <stop offset="1" stopColor="#8ef0c0" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M0 125 C45 120 50 95 95 104 S145 116 190 80 S250 96 292 55 S355 73 395 35 S455 43 500 10 L500 150 L0 150 Z"
+                fill="url(#area)"
+              />
+              <path
+                d="M0 125 C45 120 50 95 95 104 S145 116 190 80 S250 96 292 55 S355 73 395 35 S455 43 500 10"
+                fill="none"
+                stroke="#8ef0c0"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <div className="art-bottom">
+          <ShieldCheck size={16} /> Secure access to your demo account
+        </div>
+      </div>
+      <div className="auth-form-wrap">
+        <form className="auth-form" onSubmit={submit}>
+          <span className="eyebrow">WELCOME BACK</span>
+          <h2>Sign in to your account</h2>
+          <p className="muted">Enter your details to access your dashboard.</p>
+          {error && <div className="form-error">{error}</div>}
+          <label>
+            Email address
+            <input
+              type="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <button className="primary-btn full-btn" disabled={busy}>
+            {busy ? "Signing in…" : "Sign in"} <ArrowRight size={17} />
+          </button>
+          <div className="demo-tip">
+            <b>Demo credentials</b>
+            <span>demo@nexachain.local</span>
+            <span>DemoPass123!</span>
+          </div>
+          <p className="auth-switch">
+            New to the platform? <Link to="/register">Create an account</Link>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}
